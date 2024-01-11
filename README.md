@@ -1,7 +1,7 @@
-Certainly! Below is a simple and well-organized `README.md` file structure for your project. It includes essential information about your project, how to install dependencies, and basic usage instructions.
+
 
 ```markdown
-# Project Name
+# Medresto
 
 A brief description of your project.
 
@@ -20,7 +20,7 @@ Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.co
 1. Clone the repository:
 
     ```bash
-    git clone 
+    git clone https://github.com/Codexnever/Medresto.git
     cd your-repo
     ```
 
