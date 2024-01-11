@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOD Cards</title>
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div id="cards-container"></div>
+
+<script>
+  async function fetchData() {
+    const response = await fetch('/kod');
+    const data = await response.json();
+
+    const cardsContainer = document.getElementById('cards-container');
+
+    data.forEach(item => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <h2>KOT ID: ${item.kotid}</h2>
+        <p>Cancel Status: ${item.cancelStatus}</p>
+        <p>Comment: ${item.Comment}</p>
+        <p>Created: ${item.created}</p>
+        <p>KOT Order: ${item.KotOrder}</p>
+        <p>Order Type: ${item.orderType}</p>
+        <p>Status: ${item.status}</p>
+        <p>Time: ${item.time}</p>
+        <p>Price: ${item.price}</p>
+      `;
+      cardsContainer.appendChild(card);
+    });
+  }
+
+  fetchData();
+</script>
+
+</body>
+</html>
