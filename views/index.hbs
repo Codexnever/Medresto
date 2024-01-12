@@ -76,11 +76,12 @@
 
   th,
   td {
-       border: 1px solid #ddd;
-    padding: 5px;
+    border: 1px solid #ddd;
+    padding: 0px;
     text-align: left;
-    padding-right: 20px;
+    padding-right: 0px;
   }
+
   th {
     background-color: #f2f2f2;
   }
@@ -191,51 +192,51 @@
   select:focus {
     outline: none;
   }
-#orderStatus option.x[selected] {
-    color: red; 
-}
 
+  #orderStatus option.x[selected] {
+    color: red;
+  }
 </style>
 
 <script>
   //down
- async function testing(kotId, value) {
+  async function testing(kotId, value) {
     try {
-        if (value === 'java') {
-            await cancelOrderStatus(kotId);
-        } else {
-            const comment = `The order is ${value}`;
-            await sendCommentToServer(kotId, comment);
+      if (value === 'java') {
+        await cancelOrderStatus(kotId);
+      } else {
+        const comment = `The order is ${value}`;
+        await sendCommentToServer(kotId, comment);
 
-            console.log(`Comment set for kotItemId ${kotId}: ${comment}`);
-        }
+        console.log(`Comment set for kotItemId ${kotId}: ${comment}`);
+      }
     } catch (error) {
-        console.error('An error occurred:', error);
+      console.error('An error occurred:', error);
     }
-}
+  }
 
-async function sendCommentToServer(kotId, comment) {
+  async function sendCommentToServer(kotId, comment) {
     try {
-        const response = await fetch(`/api/update-comment/${kotId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                comment: "This is comment",
-            }),
-        });
+      const response = await fetch(`/api/update-comment/${kotId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          comment: "This is comment",
+        }),
+      });
 
-        if (!response.ok) {
-            throw new Error(`Failed to update comment: ${response.status}`);
-        }
+      if (!response.ok) {
+        throw new Error(`Failed to update comment: ${response.status}`);
+      }
 
-        const result = await response.text();
-        console.log(result);  // Log the response from the server
+      const result = await response.text();
+      console.log(result);  // Log the response from the server
     } catch (error) {
-        console.error('Error updating comment:', error);
+      console.error('Error updating comment:', error);
     }
-}
+  }
 
 
 
@@ -259,7 +260,7 @@ async function sendCommentToServer(kotId, comment) {
       console.error('An error occurred while setting status:', error);
     }
   }
-//row
+  //row
   async function cancelOrder(kotId, kotItemId) {
     console.log('Cancel order for kotId:', kotId, 'and kotItemId:', kotItemId);
 
@@ -271,7 +272,7 @@ async function sendCommentToServer(kotId, comment) {
           'Access-Control-Allow-Origin': '*',
         },
       });
-//row delete 
+      //row delete 
       if (response.ok) {
         console.log(`Order canceled successfully for kotId: ${kotId}, kotItemId: ${kotItemId}`);
 
@@ -295,7 +296,6 @@ async function sendCommentToServer(kotId, comment) {
     if (selectedValue === 'alpha') {
 
       cancelOrder(kotId, kotItemId);
-      // Call the function for Rejected
     } else if (selectedValue === 'beta') {
 
     } else if (selectedValue === 'gama') {
@@ -303,10 +303,13 @@ async function sendCommentToServer(kotId, comment) {
     } else if (selectedValue === 'proton') {
 
     } else {
-      // Default case, handle it accordingly
-      // Replace this comment with the appropriate function call or logic
+
     }
   }
+  function handleOrderClick(kotId, kotItemId, selectedValue) {
+    handleOrderStatus(kotId, kotItemId, selectedValue);
+  }
+
 
   //outside the table
 
@@ -320,7 +323,7 @@ async function sendCommentToServer(kotId, comment) {
           let createdAt = new Date(createdAtString);
           const currentTime = new Date();
           const timeElapsed = (currentTime - createdAt) / 1000 / 60;
-          const timeElapsedd = (currentTime - createdAt) / 1000 / 60/60;
+          const timeElapsedd = (currentTime - createdAt) / 1000 / 60;
 
           const timeDiffElement = card.querySelector('.time-diff-value');
           if (timeDiffElement) {
@@ -402,21 +405,35 @@ async function sendCommentToServer(kotId, comment) {
               </div> --}}
 
 
-              <select name="orderStatus" id="orderStatus"
-                onchange="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)"style="
+              {{!-- <select name="orderStatus" id="orderStatus"
+                onchange="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)" style="
    font-weight: 1000;size: 20px; color:red;">
                 <option value="alpha">Rejected</option style="
-    color: black;  font-weight: bold;"  >
+    color: black;  font-weight: bold;">
                 <option value="beta">Ready</option style="
     color: black;  font-weight: bold;">
                 <option value="gama">Preparing</option style="
     color: black;  font-weight: bold;">
-                <option value="proton" >Placed</option style="
+                <option value="proton">Placed</option style="
     color: black;  font-weight: bold;">
                 <option class="x" value="proton" selected>X</option style="
-    color: red;  font-weight: bold;" >
-              </select>
+    color: red;  font-weight: bold;">
+              </select> --}}
 
+              <div class="dropdown">
+                <button onclick="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)"
+                  class="dropbtn">X</button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#" class="alpha"
+                    onclick="handleOrderClick('{{this.kotId}}', '{{this.kotItemId}}', 'alpha')">Rejected</a>
+                  <a href="#" class="beta"
+                    onclick="handleOrderClick('{{this.kotId}}', '{{this.kotItemId}}', 'beta')">Ready</a>
+                  <a href="#" class="gama"
+                    onclick="handleOrderClick('{{this.kotId}}', '{{this.kotItemId}}', 'gama')">Preparing</a>
+                  <a href="#" class="proton"
+                    onclick="handleOrderClick('{{this.kotId}}', '{{this.kotItemId}}', 'proton')">Placed</a>
+                </div>
+              </div>
             </td>
 
             <td>{{this.qty}}</td>
