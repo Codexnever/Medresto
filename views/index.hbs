@@ -370,7 +370,7 @@
 
 <div class="cards-container">
   {{#each records}}
-  <div class="card" data-time="{{this.myTime}}">
+  <div class="card" data-time="{{this.time}}">
     <div class="card-content">
       <div style="display: flex; justify-content: space-between; margin-bottom: 10px; background-color:#59a61f; width: 100%; height:60px; border-radius: 6px 6px 0px 0px;
   position: sticky; 
@@ -393,9 +393,22 @@
 
           <tr data-kot-id="{{this.kotId}}" data-item-id="{{this.itemId}}">
             <td>
-        
 
 
+              {{!-- <select name="orderStatus" id="orderStatus"
+                onchange="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)" style="
+   font-weight: 1000;size: 20px; color:red;">
+                <option value="alpha">Rejected</option style="
+    color: black;  font-weight: bold;">
+                <option value="beta">Ready</option style="
+    color: black;  font-weight: bold;">
+                <option value="gama">Preparing</option style="
+    color: black;  font-weight: bold;">
+                <option value="proton">Placed</option style="
+    color: black;  font-weight: bold;">
+                <option class="x" value="proton" selected>X</option style="
+    color: red;  font-weight: bold;">
+              </select> --}}
 
               <div class="dropdown">
                 <button onclick="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)"
