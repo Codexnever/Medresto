@@ -1,13 +1,13 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mysql = require('mysql2/promise');
-const cors = require('cors'); 
+const cors = require('cors');
 const app = express();
 const port = 3000;
 app.use(express.json());
 
 
-app.use(cors()); 
+app.use(cors());
 app.use(express.static(__dirname + '/public'));
 
 const pool = mysql.createPool({
@@ -37,7 +37,7 @@ app.set('views', __dirname + '/views');
 // Routes
 app.get('/kod', async (req, res) => {
   try {
-    const kodData = await pool.query('SELECT * FROM kod WHERE statuss = 1');
+    const kodData = await pool.query('SELECT * FROM kod WHERE status = 1');
 
     const recordsWithSecondData = await Promise.all(
       kodData[0].map(async (record) => {
@@ -72,7 +72,7 @@ app.route('/api/cancel-order/:kotId').put(async (req, res) => {
   const { kotId } = req.params;
 
   try {
-    await pool.query('UPDATE kod SET statuss = 0, cancelStatus = "The order is canceled!" WHERE kotId = ?', [kotId]);
+    await pool.query('UPDATE kod SET status = 0, cancelStatus = "The order is canceled!" WHERE kotId = ?', [kotId]);
     res.status(200).send('Order canceled successfully.');
   } catch (error) {
     console.error('Error canceling order:', error);
@@ -86,25 +86,25 @@ app.route('/api/update-comment/:kotId').put(async (req, res) => {
   const { comment } = req.body;
 
   try {
-      // Update the comment in your database for the specified kotId
-      await pool.query('UPDATE SECOND SET comment = ? WHERE kotId = ?', [comment, kotId]);
-      res.status(200).send('Comment updated successfully.');
+    // Update the comment in your database for the specified kotId
+    await pool.query('UPDATE kod SET comment = ? WHERE kotId = ?', [comment, kotId]);
+    res.status(200).send('Comment updated successfully.');
   } catch (error) {
-      console.error('Error updating comment:', error);
-      res.status(500).send('Internal Server Error');
+    console.error('Error updating comment:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
 
 
-  //temep
+//temep
 app.route('/api/cancel-order/:kotId/:kotItemId').put(async (req, res) => {
   const { kotId, kotItemId } = req.params;
   const { status } = req.body;
 
   try {
     let updateQuery = '';
-    
+
     switch (status) {
       case 'java':
         // Update status and comment for 'java' case
