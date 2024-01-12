@@ -393,32 +393,9 @@
 
           <tr data-kot-id="{{this.kotId}}" data-item-id="{{this.itemId}}">
             <td>
-              {{!-- <div class="dropdown">
-                <div class="dropbtn">X</div>
-                <div class="dropdown-content">
-                  <button class="dropbtn" style="background-color: #e9e9e9;;"
-                    onclick="cancelOrder('{{this.kotId}}', '{{this.kotItemId}}')">Rejected</button>
-                  <a href="#" onclick="setComment('{{this.kotId}}', '{{this.kotItemId}}', 'Ready')">Ready</a>
-                  <a href="#" onclick="setComment('{{this.kotId}}', '{{this.kotItemId}}', 'Preparing')">Preparing</a>
-                  <a href="#" onclick="setComment('{{this.kotId}}', '{{this.kotItemId}}', 'Placed')">Placed</a>
-                </div>
-              </div> --}}
+        
 
 
-              {{!-- <select name="orderStatus" id="orderStatus"
-                onchange="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)" style="
-   font-weight: 1000;size: 20px; color:red;">
-                <option value="alpha">Rejected</option style="
-    color: black;  font-weight: bold;">
-                <option value="beta">Ready</option style="
-    color: black;  font-weight: bold;">
-                <option value="gama">Preparing</option style="
-    color: black;  font-weight: bold;">
-                <option value="proton">Placed</option style="
-    color: black;  font-weight: bold;">
-                <option class="x" value="proton" selected>X</option style="
-    color: red;  font-weight: bold;">
-              </select> --}}
 
               <div class="dropdown">
                 <button onclick="handleOrderStatus('{{this.kotId}}', '{{this.kotItemId}}', this.value)"
